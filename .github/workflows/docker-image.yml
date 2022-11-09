@@ -18,7 +18,8 @@ jobs:
       run: |
         docker run --rm --privileged tonistiigi/binfmt --install all
         docker buildx create --name arm-builder --platform arm64 --use
-        docker buildx build --load --builder arm-builder --platform linux/arm64 .
+        docker buildx build --load --builder arm-builder --platform linux/arm64 --tag containerd-healthcheck .
+        docker images
 
     - name: Log into GitHub's Docker registry
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
